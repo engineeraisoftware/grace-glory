@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Grace & Glory — Christian Songs, Bible, Daily Verse & Community</title>
+<meta name="description" content="Listen to Christian songs, read the Bible, get daily verses, give tithe/donation, share testimonies, chat and request prayer." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#c9a24b; --gold2:#e8cf8a; --dark:#14100a; --ink:#2b2417;
+  --cream:#faf6ec; --card:#ffffff; --muted:#8a7f63; --line:#eee3c8;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--cream);color:var(--ink)}
+h1,h2,h3,h4{font-family:"Cormorant Garamond",serif;line-height:1.1;margin:0 0 .5rem}
+a{color:inherit;text-decoration:none}
+.container{max-width:1120px;margin:0 auto;padding:0 20px}
+.section{padding:64px 0}
+.section.alt{background:linear-gradient(180deg,#fff,#fbf3dd)}
+.eyebrow{color:#a07f22;letter-spacing:.12em;text-transform:uppercase;font-size:.78rem;font-weight:700}
+.title{text-align:center;font-size:2.4rem}
+.subtitle{text-align:center;color:#6f6449;max-width:680px;margin:0 auto 26px}
+.muted{color:var(--muted);font-size:.9rem}
+.center{text-align:center}
+
+/* topbar + nav */
+.topbar{background:#14100a;color:#f3e6c2;text-align:center;font-size:.85rem;padding:8px 12px}
+.nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(250,246,236,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.brand{display:flex;gap:10px;align-items:center}
+.brand-cross{background:var(--dark);color:var(--gold2);width:40px;height:40px;display:grid;place-items:center;border-radius:12px;font-size:22px}
+.brand strong{font-family:"Cormorant Garamond",serif;font-size:1.3rem;display:block;line-height:1}
+.brand small{color:var(--muted);font-size:.72rem}
+.links{display:flex;gap:18px;align-items:center}
+.links a{font-weight:600;font-size:.95rem}
+.hamburger{display:none;border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px}
+
+/* buttons */
+.btn{border:0;border-radius:999px;padding:11px 20px;font-weight:700;cursor:pointer;font-size:.95rem;display:inline-block}
+.btn-gold{background:linear-gradient(135deg,var(--gold),#9c7a24);color:#fff;box-shadow:0 8px 20px rgba(160,127,34,.3)}
+.btn-ghost{background:#fff;border:1px solid var(--line)}
+.btn-dark{background:var(--dark);color:#f7ecc9}
+.btn-outline{background:#fff;border:1px solid var(--line)}
+.btn.full{width:100%}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+
+/* hero */
+.hero{position:relative;min-height:78vh;display:grid;place-items:center;text-align:center;color:#fff;background:url('https://images.unsplash.com/photo-1507692049790-de58290a4334?w=1600&q=80') center/cover;overflow:hidden}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,8,4,.62),rgba(10,8,4,.78))}
+.hero-inner{position:relative;max-width:820px;padding:70px 20px}
+.pill{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);padding:8px 16px;border-radius:999px;font-size:.85rem}
+.hero h1{font-size:clamp(2.8rem,6vw,4.6rem);margin:16px 0}
+.hero h1 em{color:var(--gold2);font-style:italic}
+.hero-sub{color:#e9dcc0;font-size:1.05rem}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.hero-stats{display:flex;gap:12px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+.hero-stats div{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:16px;padding:12px 22px;min-width:130px}
+.hero-stats strong{display:block;font-size:1.4rem;color:var(--gold2)}
+.hero-stats span{font-size:.8rem;color:#e9dcc0}
+
+/* cards */
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 12px 30px rgba(120,90,20,.08)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+.verse-card{background:linear-gradient(135deg,#14100a,#3a2d10);color:#f5e8c4;border:0}
+.verse-card h2{font-size:1.7rem}
+.verse-ref{color:var(--gold2);font-weight:700}
+.devotional h3{margin-top:0}
+.prayer-box{background:#faf3dd;border:1px dashed var(--gold);border-radius:14px;padding:14px;margin-top:14px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.small-cards{margin-top:16px}
+.toolbar{display:flex;gap:10px;margin:18px 0}
+.toolbar input,.toolbar select{flex:1;padding:12px 14px;border-radius:12px;border:1px solid var(--line);font-size:.95rem}
+
+/* songs */
+.song{overflow:hidden;display:flex;flex-direction:column}
+.song img{width:100%;height:170px;object-fit:cover;border-radius:14px}
+.song h3{margin:12px 0 2px;font-size:1.3rem}
+.song .tag{display:inline-block;font-size:.72rem;background:#f4e9c9;color:#7a5f14;border-radius:999px;padding:4px 10px;margin:6px 0;font-weight:700}
+.song p{color:#6f6449;font-size:.92rem;flex:1}
+.song .row{margin-top:12px}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;place-items:center;padding:18px;z-index:100}
+.modal.open{display:grid}
+.modal-card{background:#fff;max-width:640px;width:100%;border-radius:20px;padding:26px;position:relative;max-height:85vh;overflow:auto}
+.modal-x{position:absolute;top:12px;right:12px;border:0;background:#f3ecd8;border-radius:50%;width:34px;height:34px;cursor:pointer}
+.lyrics{white-space:pre-line;background:#faf6ec;border-radius:12px;padding:16px;margin:14px 0;color:#4d442c}
+
+/* bible */
+.bible-card{margin-top:10px}
+.bible-controls{display:flex;gap:10px;flex-wrap:wrap}
+.bible-controls input{flex:2;min-width:200px;padding:12px;border:1px solid var(--line);border-radius:12px}
+.bible-controls select{flex:1;min-width:160px;padding:12px;border-radius:12px;border:1px solid var(--line)}
+.quick-refs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.quick-refs button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;cursor:pointer}
+.bible-output{background:#14100a;color:#f2e7c6;border-radius:14px;padding:20px;line-height:1.7;min-height:140px}
+
+/* give */
+.give-list{list-style:none;padding:0;line-height:2}
+.secure{background:#eef7ee;border:1px solid #bfe0bf;color:#2f6b2f;border-radius:12px;padding:10px 14px;font-size:.88rem}
+.give-card label{display:block;font-weight:700;margin:12px 0 6px;font-size:.88rem}
+.give-card input,.give-card select,.card input,.card textarea{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);font-size:.95rem;font-family:inherit}
+.amounts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.amounts button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px;cursor:pointer;font-weight:800}
+.amounts button.active{background:var(--dark);color:var(--gold2);border-color:var(--dark)}
+
+/* reviews */
+.reviews{display:grid;gap:12px;margin-top:12px}
+.review{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}
+.review .head{display:flex;justify-content:space-between;align-items:center}
+.review .name{font-weight:800}
+.review .stars{color:#c9a24b}
+.review p{margin:8px 0;color:#4d442c}
+.review time{font-size:.78rem;color:var(--muted)}
+.stars span{font-size:1.6rem;cursor:pointer;color:#ddd}
+.stars span.on{color:#c9a24b}
+.reviews.small .review{padding:12px;font-size:.9rem}
+
+/* contact */
+.contact-card p{line-height:1.7}
+.map{width:100%;height:200px;border:0;border-radius:14px;margin-top:10px}
+
+/* footer */
+footer{background:#14100a;color:#d8c9a1;padding:40px 0 20px;margin-top:20px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1.5fr;gap:20px}
+.footer-grid a{display:block;margin:6px 0}
+.copy{text-align:center;color:#8a7f63;font-size:.85rem;margin-top:24px}
+
+/* chat */
+.chat-fab{position:fixed;right:18px;bottom:18px;z-index:90;border:0;background:var(--dark);color:var(--gold2);border-radius:999px;padding:14px 20px;font-weight:800;cursor:pointer;box-shadow:0 12px 30px rgba(0,0,0,.3)}
+.chat{position:fixed;right:18px;bottom:76px;width:min(360px,92vw);background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);display:none;z-index:95;border:1px solid var(--line)}
+.chat.open{display:block}
+.chat-head{background:var(--dark);color:#f5e8c4;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
+.chat-head small{display:block;color:#bfa76a;font-size:.75rem}
+.chat-head button{background:transparent;border:0;color:#fff;font-size:1.1rem;cursor:pointer}
+.chat-body{height:300px;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:#faf6ec}
+.msg{max-width:82%;padding:10px 14px;border-radius:16px;font-size:.9rem;line-height:1.5}
+.msg.bot{background:#fff;border:1px solid var(--line);align-self:flex-start}
+.msg.user{background:var(--dark);color:#f5e8c4;align-self:flex-end}
+.chat-quick{display:flex;gap:6px;padding:10px;flex-wrap:wrap;border-top:1px solid var(--line)}
+.chat-quick button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;cursor:pointer;font-size:.8rem}
+.chat-input{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}
+.chat-input input{flex:1;padding:11px;border-radius:999px;border:1px solid var(--line)}
+.chat-input button{border:0;background:var(--gold);color:#fff;border-radius:50%;width:42px;height:42px;cursor:pointer;font-size:1.1rem}
+
+@media(max-width:860px){
+  .two-col,.grid-3,.footer-grid{grid-template-columns:1fr}
+  .links{display:none;position:absolute;top:64px;right:12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;flex-direction:column;min-width:200px}
+  .links.open{display:flex}
+  .hamburger{display:block}
+}
+
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar" id="dailyVerseTopbar">
+  <span class="topbar-verse" id="topbarVerse">“I can do all things through Christ who strengthens me.” — Philippians 4:13</span>
+</div>
+
+<!-- NAV -->
+<header class="nav" id="navbar">
+  <a class="brand" href="#home">
+    <span class="brand-cross">✝</span>
+    <span><strong>Grace & Glory</strong><small>Faith • Worship • Community</small></span>
+  </a>
+  <nav class="links" id="navLinks">
+    <a href="#home">Home</a>
+    <a href="#songs">Songs</a>
+    <a href="#bible">Bible</a>
+    <a href="#give">Give</a>
+    <a href="#community">Community</a>
+    <a href="#prayer">Prayer</a>
+    <button class="btn btn-gold" onclick="toggleChat(true)">Chat ✦</button>
+  </nav>
+  <button class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <p class="pill">🕊 Welcome to a place of worship & hope</p>
+    <h1>Walk in Faith,<br><em>Live in Grace.</em></h1>
+    <p class="hero-sub">Christian songs, the Holy Bible, daily verses, online giving, real community testimonies, a faith chat companion & prayer support — all in one place.</p>
+    <div class="hero-btns">
+      <a href="#songs" class="btn btn-gold">🎵 Listen to Songs</a>
+      <a href="#bible" class="btn btn-ghost">📖 Read the Bible</a>
+      <a href="#prayer" class="btn btn-ghost">🙏 Request Prayer</a>
+    </div>
+    <div class="hero-stats">
+      <div><strong id="statVerses">365</strong><span>Daily Verses</span></div>
+      <div><strong>66</strong><span>Bible Books</span></div>
+      <div><strong id="statTestimonies">0</strong><span>Testimonies</span></div>
+      <div><strong>24/7</strong><span>Prayer & Chat</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- DAILY VERSE -->
+<section class="section" id="daily">
+  <div class="container two-col">
+    <div class="card verse-card">
+      <p class="eyebrow">✨ Verse of the Day — <span id="todayDate"></span></p>
+      <h2 id="dailyVerseText">“For God so loved the world that He gave His one and only Son…”</h2>
+      <p class="verse-ref" id="dailyVerseRef">John 3:16</p>
+      <div class="row">
+        <button class="btn btn-dark" onclick="newDailyVerse()">🔄 New Blessing</button>
+        <button class="btn btn-outline" onclick="copyVerse()">📋 Copy Verse</button>
+        <button class="btn btn-outline" onclick="shareVerse()">↗ Share</button>
+      </div>
+    </div>
+    <div class="card devotional">
+      <h3>🙏 Today's Devotion</h3>
+      <p id="devotionalText"></p>
+      <div class="prayer-box">
+        <strong>🕯 A short prayer for today:</strong>
+        <p><em id="dailyPrayer"></em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SONGS -->
+<section class="section alt" id="songs">
+  <div class="container">
+    <p class="eyebrow">🎵 Worship & Praise</p>
+    <h2 class="title">Christian Songs</h2>
+    <p class="subtitle">Search, filter and worship. Click play to open on YouTube, or read lyrics right here.</p>
+    <div class="toolbar">
+      <input id="songSearch" placeholder="🔍 Search song, artist… e.g. Amazing Grace" oninput="renderSongs()" />
+      <select id="songFilter" onchange="renderSongs()">
+        <option value="all">All moods</option>
+        <option value="worship">Worship</option>
+        <option value="praise">Praise / Joyful</option>
+        <option value="peace">Peace / Comfort</option>
+        <option value="gospel">Gospel Classic</option>
+      </select>
+    </div>
+    <div class="grid-3" id="songGrid"></div>
+  </div>
+</section>
+
+<!-- SONG MODAL -->
+<div class="modal" id="songModal">
+  <div class="modal-card">
+    <button class="modal-x" onclick="closeSong()">✕</button>
+    <h3 id="songModalTitle"></h3>
+    <p class="muted" id="songModalArtist"></p>
+    <div class="lyrics" id="songModalLyrics"></div>
+    <a id="songModalLink" target="_blank" class="btn btn-gold">▶ Play on YouTube</a>
+  </div>
+</div>
+
+<!-- BIBLE -->
+<section class="section" id="bible">
+  <div class="container">
+    <p class="eyebrow">📖 The Holy Bible</p>
+    <h2 class="title">Read the Bible Online</h2>
+    <p class="subtitle">Type any reference (e.g. <code>John 3:16</code>, <code>Psalm 23</code>, <code>Romans 8:28</code>) — powered by a free Bible API. Works online.</p>
+    <div class="card bible-card">
+      <div class="bible-controls">
+        <input id="bibleRef" value="Psalm 23" placeholder="e.g. John 1:1-5" />
+        <select id="bibleTrans">
+          <option value="web">World English (WEB)</option>
+          <option value="clementine">Latin Clementine</option>
+          <option value="kjv">KJV (via lookup)</option>
+        </select>
+        <button class="btn btn-gold" onclick="fetchBible()">Read ✦</button>
+      </div>
+      <div class="quick-refs">
+        <button onclick="quickBible('John 3:16')">John 3:16</button>
+        <button onclick="quickBible('Psalm 23')">Psalm 23</button>
+        <button onclick="quickBible('Proverbs 3:5-6')">Proverbs 3:5-6</button>
+        <button onclick="quickBible('Romans 8:28')">Romans 8:28</button>
+        <button onclick="quickBible('Philippians 4:13')">Phil 4:13</button>
+        <button onclick="quickBible('Genesis 1:1-5')">Genesis 1</button>
+      </div>
+      <div id="bibleOutput" class="bible-output">Enter a verse above and press <strong>Read</strong>. Try <em>Psalm 91</em>.</div>
+    </div>
+
+    <div class="grid-3 small-cards">
+      <div class="card"><h4>📕 Old Testament</h4><p>39 books — Law, History, Poetry & Prophets. Start with Genesis, Psalms & Isaiah.</p></div>
+      <div class="card"><h4>📘 New Testament</h4><p>27 books — Gospels, Acts, Letters & Revelation. Start with John, Romans & James.</p></div>
+      <div class="card"><h4>🔖 Reading Plan</h4><p>Read 1 Psalm + 1 Proverb chapter by date + 1 Gospel chapter daily to finish in ~90 days.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GIVE -->
+<section class="section alt" id="give">
+  <div class="container two-col">
+    <div>
+      <p class="eyebrow">💛 Tithe & Donation</p>
+      <h2 class="title" style="text-align:left">Give with a Cheerful Heart</h2>
+      <p class="subtitle" style="text-align:left">“Each of you should give what you have decided in your heart… for God loves a cheerful giver.” — 2 Corinthians 9:7</p>
+      <ul class="give-list">
+        <li>⛪ <strong>Sunday Tithe</strong> — support the church ministry</li>
+        <li>🍞 <strong>Poor & Needy</strong> — food, clothes & shelter</li>
+        <li>📚 <strong>Mission & Education</strong> — Bibles, schools, outreach</li>
+      </ul>
+      <div class="secure">🔒 Demo form — connect Razorpay / Stripe / UPI to accept real payments.</div>
+    </div>
+    <div class="card give-card">
+      <h3>Make a Donation</h3>
+      <div class="amounts">
+        <button onclick="setAmount(101)">₹101</button>
+        <button onclick="setAmount(501)">₹501</button>
+        <button onclick="setAmount(1001)" class="active">₹1001</button>
+        <button onclick="setAmount(5001)">₹5001</button>
+      </div>
+      <label>Amount (₹)</label>
+      <input id="donateAmount" type="number" value="1001" min="1" />
+      <label>Purpose</label>
+      <select id="donatePurpose">
+        <option>Tithe</option>
+        <option>Offering</option>
+        <option>Poor & Needy</option>
+        <option>Mission Fund</option>
+        <option>Building Fund</option>
+      </select>
+      <label>Your Name</label>
+      <input id="donorName" placeholder="e.g. John Mathew" />
+      <button class="btn btn-gold full" onclick="donate()">❤ Donate Now</button>
+      <p class="muted center">UPI • Cards • Netbanking supported when you add a payment key.</p>
+      <div id="donateMsg"></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section class="section" id="community">
+  <div class="container">
+    <p class="eyebrow">💬 Real People, Real Faith</p>
+    <h2 class="title">Community Testimonies & Reviews</h2>
+    <p class="subtitle">When someone adds a testimony below, it appears <strong>instantly</strong> for everyone (saved in this browser). No login needed.</p>
+    <div class="two-col">
+      <div class="card">
+        <h3>✍ Share your testimony</h3>
+        <label>Your name</label>
+        <input id="revName" placeholder="e.g. Priya from Chennai" />
+        <label>How did God bless you? (review)</label>
+        <textarea id="revText" rows="4" placeholder="Write how this ministry, a song, or a verse helped you…"></textarea>
+        <label>Rating</label>
+        <div class="stars" id="starPicker">
+          <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5" class="on">★</span>
+        </div>
+        <button class="btn btn-dark full" onclick="addReview()">Post Testimony ✦</button>
+        <p class="muted">By posting you agree to share kindly and truthfully. Admin moderation can be added later.</p>
+      </div>
+      <div>
+        <div class="toolbar">
+          <strong><span id="revCount">0</span> testimonies</strong>
+          <button class="btn btn-outline" onclick="seedReviews()">↺ Load examples</button>
+        </div>
+        <div id="reviewList" class="reviews"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRAYER / CONTACT -->
+<section class="section alt" id="prayer">
+  <div class="container two-col">
+    <div class="card">
+      <p class="eyebrow">🙏 Prayer Request</p>
+      <h2 class="title" style="text-align:left">Need Prayer? Contact Us</h2>
+      <p>Our prayer team will pray for you. Fill the form — it saves instantly and opens your email/WhatsApp to send it to us.</p>
+      <label>Your name</label>
+      <input id="pName" placeholder="Your name" />
+      <label>Phone / Email</label>
+      <input id="pContact" placeholder="e.g. +91 … or email" />
+      <label>Prayer request</label>
+      <textarea id="pMsg" rows="4" placeholder="Share your prayer need… (kept private)"></textarea>
+      <label><input type="checkbox" id="pPrivate" checked /> Keep this private (don't show in community)</label>
+      <div class="row">
+        <button class="btn btn-gold" onclick="sendPrayer('email')">📧 Send via Email</button>
+        <button class="btn btn-dark" onclick="sendPrayer('whatsapp')">💬 WhatsApp Us</button>
+      </div>
+      <p class="muted">Change the email/number in <code>app.js</code> → <code>CHURCH_EMAIL</code> / <code>CHURCH_WHATSAPP</code> to yours.</p>
+      <div id="prayerMsg"></div>
+    </div>
+    <div>
+      <div class="card contact-card">
+        <h3>⛪ Visit / Contact</h3>
+        <p>📍 Grace & Glory Church,<br>123 Faith Street, Chennai, India</p>
+        <p>📞 +91 98765 43210<br>✉ hello@graceglory.church</p>
+        <p>🕙 Sunday Service: 9:00 AM & 6:00 PM<br>🕯 Wednesday Prayer: 7:00 PM</p>
+        <iframe title="map" src="https://www.openstreetmap.org/export/embed.html?bbox=80.19%2C12.93%2C80.32%2C13.05&layer=mapnik" class="map"></iframe>
+      </div>
+      <div class="card">
+        <h3>📖 Recent prayer requests</h3>
+        <div id="prayerList" class="reviews small"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-grid">
+    <div><h4>✝ Grace & Glory</h4><p>Spreading faith through songs, scripture & community.</p></div>
+    <div><h4>Explore</h4><a href="#songs">Songs</a><a href="#bible">Bible</a><a href="#give">Give</a><a href="#community">Community</a></div>
+    <div><h4>Verse</h4><p><em>“Thy word is a lamp unto my feet.” — Psalm 119:105</em></p></div>
+  </div>
+  <p class="copy">© 2026 Grace & Glory • Built with faith • Demo site — replace contact & payment details before launch.</p>
+</footer>
+
+<!-- CHAT -->
+<button class="chat-fab" onclick="toggleChat()">💬 <span>Grace Bot</span></button>
+<div class="chat" id="chatBox">
+  <div class="chat-head">
+    <div><strong>🤖 Grace Bot</strong><small>● online — faith companion</small></div>
+    <button onclick="toggleChat(false)">✕</button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-quick">
+    <button onclick="askBot('Give me a verse for anxiety')">Anxiety 😟</button>
+    <button onclick="askBot('Give me a verse for hope')">Hope 🌅</button>
+    <button onclick="askBot('I need a prayer')">Prayer 🙏</button>
+  </div>
+  <div class="chat-input">
+    <input id="chatText" placeholder="Ask: verse, prayer, song, tithe…" onkeydown="if(event.key==='Enter')sendChat()" />
+    <button onclick="sendChat()">➤</button>
+  </div>
+</div>
+
+<script>
+// ===== CONFIG: change these to your real details =====
+const CHURCH_EMAIL = "hello@graceglory.church";
+const CHURCH_WHATSAPP = "919876543210"; // country code + number, no +
+
+// ===== DAILY VERSE =====
+const VERSES = [
+  { t: "For God so loved the world that He gave His one and only Son, that whoever believes in Him shall not perish but have eternal life.", r: "John 3:16", d: "God's love is personal. Today, receive it — you are deeply loved, no matter your past.", p: "Father, thank You for loving me so completely. Help me walk in that love today. Amen." },
+  { t: "I can do all things through Christ who strengthens me.", r: "Philippians 4:13", d: "Whatever feels too heavy today — work, family, health — Christ gives strength for this very day.", p: "Lord Jesus, strengthen me where I am weak. I trust You for today. Amen." },
+  { t: "The Lord is my shepherd; I shall not want.", r: "Psalm 23:1", d: "You lack nothing when God leads you. Rest — your Shepherd is already ahead of you.", p: "My Shepherd, lead me beside still waters and restore my soul. Amen." },
+  { t: "Trust in the Lord with all your heart and lean not on your own understanding.", r: "Proverbs 3:5", d: "Confused about a decision? Surrender it. God sees the full picture.", p: "Lord, I trust You more than my own plans. Direct my paths. Amen." },
+  { t: "And we know that in all things God works for the good of those who love Him.", r: "Romans 8:28", d: "Even delays and disappointments are tools in God's hands. Good is coming.", p: "Father, turn my struggles into testimony. I believe You are working. Amen." },
+  { t: "Be strong and courageous… for the Lord your God will be with you wherever you go.", r: "Joshua 1:9", d: "Fear shrinks when God's presence grows. Go forward — you do not go alone.", p: "Lord, replace my fear with courage. Go with me today. Amen." },
+  { t: "Thy word is a lamp unto my feet, and a light unto my path.", r: "Psalm 119:105", d: "Read one chapter today and let God's Word light your next step.", p: "Lord, light my path through Your Word. Amen." },
+  { t: "Come to me, all you who are weary and burdened, and I will give you rest.", r: "Matthew 11:28", d: "Tired? Jesus invites you to rest — not escape, but true soul-rest.", p: "Jesus, I bring my burdens to You. Give my soul rest. Amen." },
+  { t: "The joy of the Lord is your strength.", r: "Nehemiah 8:10", d: "Joy is not based on circumstances — it flows from God's presence.", p: "Lord, fill me with Your joy today. Amen." },
+  { t: "Delight yourself in the Lord, and He will give you the desires of your heart.", r: "Psalm 37:4", d: "Put God first, and your desires will align with His blessings.", p: "Father, be my greatest delight. Shape my desires. Amen." }
+];
+function dayIndex(){ const d=new Date(); const start=new Date(d.getFullYear(),0,0); return Math.floor((d-start)/86400000); }
+let verseIdx = dayIndex() % VERSES.length;
+function renderDaily(){
+  const v = VERSES[verseIdx % VERSES.length];
+  document.getElementById('dailyVerseText').textContent = "\u201C"+v.t+"\u201D";
+  document.getElementById('dailyVerseRef').textContent = v.r;
+  document.getElementById('devotionalText').textContent = v.d;
+  document.getElementById('dailyPrayer').textContent = v.p;
+  document.getElementById('topbarVerse').textContent = "\u201C"+v.t+"\u201D — "+v.r;
+  document.getElementById('todayDate').textContent = new Date().toLocaleDateString('en-IN',{weekday:'long', day:'numeric', month:'long'});
+}
+function newDailyVerse(){ verseIdx++; renderDaily(); }
+function copyVerse(){ const v=VERSES[verseIdx%VERSES.length]; navigator.clipboard.writeText(`"${v.t}" — ${v.r}`).then(()=>alert("Verse copied 🙏")); }
+function shareVerse(){ const v=VERSES[verseIdx%VERSES.length]; const url=`https://wa.me/?text=${encodeURIComponent(`"${v.t}" — ${v.r} 🙏 via Grace & Glory`)}`; window.open(url,'_blank'); }
+
+// ===== SONGS =====
+const SONGS = [
+  { title:"Amazing Grace", artist:"John Newton • Gospel Classic", mood:"gospel", img:"https://images.unsplash.com/photo-1507692049790-de58290a4334?w=600&q=60", yt:"https://www.youtube.com/results?search_query=amazing+grace+christian+song", lyrics:"Amazing grace! How sweet the sound\nThat saved a wretch like me.\nI once was lost, but now am found,\nWas blind, but now I see.\n\n'Twas grace that taught my heart to fear,\nAnd grace my fears relieved.\nHow precious did that grace appear\nThe hour I first believed." },
+  { title:"How Great Is Our God", artist:"Chris Tomlin • Worship", mood:"worship", img:"https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&q=60", yt:"https://www.youtube.com/results?search_query=how+great+is+our+god+chris+tomlin", lyrics:"The splendor of the King, clothed in majesty\nLet all the earth rejoice, all the earth rejoice\nHe wraps Himself in light, and darkness tries to hide\nAnd trembles at His voice, trembles at His voice\n\nHow great is our God, sing with me\nHow great is our God, and all will see\nHow great, how great is our God." },
+  { title:"10,000 Reasons (Bless the Lord)", artist:"Matt Redman • Praise", mood:"praise", img:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&q=60", yt:"https://www.youtube.com/results?search_query=10000+reasons+matt+redman", lyrics:"Bless the Lord, O my soul, O my soul\nWorship His holy name\nSing like never before, O my soul\nI'll worship Your holy name\n\nThe sun comes up, it's a new day dawning\nIt's time to sing Your song again\nWhatever may pass, and whatever lies before me\nLet me be singing when the evening comes." },
+  { title:"It Is Well With My Soul", artist:"Horatio Spafford • Peace", mood:"peace", img:"https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=600&q=60", yt:"https://www.youtube.com/results?search_query=it+is+well+with+my+soul", lyrics:"When peace like a river attendeth my way\nWhen sorrows like sea billows roll\nWhatever my lot, Thou hast taught me to say\nIt is well, it is well with my soul." },
+  { title:"Way Maker", artist:"Sinach • Worship", mood:"worship", img:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&q=60", yt:"https://www.youtube.com/results?search_query=way+maker+sinach", lyrics:"You are here, moving in our midst\nI worship You, I worship You\nYou are here, working in this place\nI worship You, I worship You\n\nWay maker, miracle worker, promise keeper\nLight in the darkness, my God, that is who You are." },
+  { title:"Shout to the Lord", artist:"Hillsong • Praise", mood:"praise", img:"https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=600&q=60", yt:"https://www.youtube.com/results?search_query=shout+to+the+lord+hillsong", lyrics:"My Jesus, my Saviour, Lord there is none like You\nAll of my days, I want to praise\nThe wonders of Your mighty love\n\nShout to the Lord, all the earth let us sing\nPower and majesty, praise to the King!" },
+  { title:"Be Still, My Soul", artist:"Katharina von Schlegel • Peace", mood:"peace", img:"https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600&q=60", yt:"https://www.youtube.com/results?search_query=be+still+my+soul+hymn", lyrics:"Be still, my soul: the Lord is on thy side\nBear patiently the cross of grief or pain\nLeave to thy God to order and provide\nIn every change He faithful will remain." },
+  { title:"Holy, Holy, Holy", artist:"Reginald Heber • Gospel Classic", mood:"gospel", img:"https://images.unsplash.com/photo-1548625149-fc4a29cf7092?w=600&q=60", yt:"https://www.youtube.com/results?search_query=holy+holy+holy+hymn", lyrics:"Holy, holy, holy! Lord God Almighty!\nEarly in the morning our song shall rise to Thee\nHoly, holy, holy! Merciful and mighty!\nGod in three Persons, blessed Trinity!" },
+  { title:"Oceans (Where Feet May Fail)", artist:"Hillsong UNITED • Worship", mood:"worship", img:"https://images.unsplash.com/photo-1439405326854-014607f694d7?w=600&q=60", yt:"https://www.youtube.com/results?search_query=oceans+hillsong+united", lyrics:"You call me out upon the waters\nThe great unknown where feet may fail\nAnd there I find You in the mystery\nIn oceans deep, my faith will stand\n\nSpirit lead me where my trust is without borders\nLet me walk upon the waters, wherever You would call me." }
+];
+function renderSongs(){
+  const q=(document.getElementById('songSearch').value||'').toLowerCase();
+  const f=document.getElementById('songFilter').value;
+  const grid=document.getElementById('songGrid');
+  const list=SONGS.filter(s=>(f==='all'||s.mood===f)&&(s.title.toLowerCase().includes(q)||s.artist.toLowerCase().includes(q)));
+  grid.innerHTML=list.length?list.map((s,i)=>`
+    <div class="card song">
+      <img src="${s.img}" alt="${s.title}" loading="lazy"/>
+      <span class="tag">${s.mood.toUpperCase()}</span>
+      <h3>${s.title}</h3><p class="muted">${s.artist}</p>
+      <p>${s.lyrics.split('\n').slice(0,2).join('<br>')}…</p>
+      <div class="row">
+        <button class="btn btn-dark" onclick="openSong(${SONGS.indexOf(s)})">📜 Lyrics</button>
+        <a class="btn btn-gold" target="_blank" href="${s.yt}">▶ Play</a>
+      </div>
+    </div>`).join(''):'<p class="muted">No songs found. Try another search 🙏</p>';
+}
+function openSong(i){ const s=SONGS[i]; document.getElementById('songModalTitle').textContent=s.title; document.getElementById('songModalArtist').textContent=s.artist; document.getElementById('songModalLyrics').textContent=s.lyrics; document.getElementById('songModalLink').href=s.yt; document.getElementById('songModal').classList.add('open'); }
+function closeSong(){ document.getElementById('songModal').classList.remove('open'); }
+
+// ===== BIBLE READER (bible-api.com) =====
+async function fetchBible(){
+  const ref=document.getElementById('bibleRef').value.trim()||'Psalm 23';
+  const out=document.getElementById('bibleOutput');
+  out.textContent="Loading… 🙏";
+  try{
+    const res=await fetch('https://bible-api.com/'+encodeURIComponent(ref));
+    const data=await res.json();
+    if(data.error){ out.innerHTML="⚠ "+data.error+" — try e.g. <em>John 3:16</em>"; return; }
+    out.innerHTML=`<strong>${data.reference}</strong> <span class="muted">(${data.translation_name||'WEB'})</span><br><br>`+
+      data.verses.map(v=>`<sup>${v.verse}</sup> ${v.text}`).join('<br><br>');
+  }catch(e){ out.textContent="⚠ Could not load (offline?). Check connection and try again."; }
+}
+function quickBible(ref){ document.getElementById('bibleRef').value=ref; fetchBible(); document.getElementById('bible').scrollIntoView({behavior:'smooth'}); }
+
+// ===== DONATE =====
+function setAmount(a){ document.getElementById('donateAmount').value=a; document.querySelectorAll('.amounts button').forEach(b=>b.classList.toggle('active',b.textContent.includes(a))); }
+function donate(){
+  const amt=document.getElementById('donateAmount').value;
+  const purpose=document.getElementById('donatePurpose').value;
+  const name=document.getElementById('donorName').value||'Beloved giver';
+  const box=document.getElementById('donateMsg');
+  if(!amt||amt<1){ box.innerHTML='<p style="color:red">Please enter a valid amount.</p>'; return; }
+  const gifts=JSON.parse(localStorage.getItem('gg_gifts')||'[]');
+  gifts.unshift({name,amt,purpose,at:new Date().toLocaleString()});
+  localStorage.setItem('gg_gifts',JSON.stringify(gifts));
+  box.innerHTML=`<div class="secure">🙏 Thank you, <strong>${name}</strong>! Your <strong>₹${amt}</strong> for <strong>${purpose}</strong> is recorded (demo).<br>To accept real payments, add your Razorpay/Stripe key here.</div>`;
+}
+
+// ===== COMMUNITY REVIEWS (real-time local) =====
+let rating=5;
+document.getElementById('starPicker').addEventListener('click',e=>{
+  if(e.target.dataset.v){ rating=+e.target.dataset.v;
+    document.querySelectorAll('#starPicker span').forEach(s=>s.classList.toggle('on',+s.dataset.v<=rating)); }
+});
+function getReviews(){ return JSON.parse(localStorage.getItem('gg_reviews')||'[]'); }
+function saveReviews(r){ localStorage.setItem('gg_reviews',JSON.stringify(r)); }
+function addReview(){
+  const name=document.getElementById('revName').value.trim()||'Anonymous Believer';
+  const text=document.getElementById('revText').value.trim();
+  if(!text){ alert('Please write your testimony first 🙏'); return; }
+  const r=getReviews(); r.unshift({name,text,rating,at:new Date().toLocaleString()});
+  saveReviews(r); document.getElementById('revText').value=''; renderReviews();
+}
+function delReview(i){ if(!confirm('Delete this testimony?'))return; const r=getReviews(); r.splice(i,1); saveReviews(r); renderReviews(); }
+function seedReviews(){
+  saveReviews([
+    {name:"Priya • Chennai", text:"The daily verse and Way Maker carried me through my exams. I felt God's peace every morning!", rating:5, at:new Date().toLocaleString()},
+    {name:"Daniel • Bengaluru", text:"I requested prayer for my mother's health and the team prayed with me on WhatsApp. She is recovering. Praise God!", rating:5, at:new Date().toLocaleString()},
+    {name:"Esther • Kochi", text:"Beautiful songs and easy Bible reading. I start every day here now. Highly blessed!", rating:4, at:new Date().toLocaleString()}
+  ]); renderReviews();
+}
+function renderReviews(){
+  const r=getReviews(); const box=document.getElementById('reviewList');
+  document.getElementById('revCount').textContent=r.length;
+  document.getElementById('statTestimonies').textContent=r.length||'0';
+  box.innerHTML=r.length?r.map((x,i)=>`
+    <div class="review"><div class="head"><span class="name">🙏 ${x.name}</span>
+    <span><span class="stars">${'★'.repeat(x.rating)}${'☆'.repeat(5-x.rating)}</span>
+    <button onclick="delReview(${i})" style="border:0;background:none;cursor:pointer" title="delete">🗑</button></span></div>
+    <p>${x.text}</p><time>${x.at}</time></div>`).join('')
+    :'<p class="muted">No testimonies yet — be the first to share! ✨</p>';
+}
+
+// ===== PRAYER / CONTACT =====
+function getPrayers(){ return JSON.parse(localStorage.getItem('gg_prayers')||'[]'); }
+function sendPrayer(via){
+  const n=document.getElementById('pName').value.trim()||'Anonymous';
+  const c=document.getElementById('pContact').value.trim();
+  const m=document.getElementById('pMsg').value.trim();
+  if(!m){ alert('Please write your prayer request 🙏'); return; }
+  const priv=document.getElementById('pPrivate').checked;
+  const arr=getPrayers(); arr.unshift({n,m,at:new Date().toLocaleString(),priv});
+  localStorage.setItem('gg_prayers',JSON.stringify(arr)); renderPrayers();
+  document.getElementById('prayerMsg').innerHTML='<div class="secure">🕯 Received! Our prayer team will pray for you, <strong>'+n+'</strong>. Opening '+via+'…</div>';
+  const body=encodeURIComponent(`Prayer Request from ${n} (${c})\n\n${m}\n\n— via Grace & Glory website`);
+  if(via==='email') window.location.href=`mailto:${CHURCH_EMAIL}?subject=${encodeURIComponent('Prayer Request from '+n)}&body=${body}`;
+  else window.open(`https://wa.me/${CHURCH_WHATSAPP}?text=${body}`,'_blank');
+}
+function renderPrayers(){
+  const arr=getPrayers().filter(p=>!p.priv).slice(0,5);
+  document.getElementById('prayerList').innerHTML=arr.length?arr.map(p=>`<div class="review"><span class="name">🕯 ${p.n}</span><p>${p.m}</p><time>${p.at} • prayed for</time></div>`).join(''):'<p class="muted">Private requests are hidden. Public ones will appear here.</p>';
+}
+
+// ===== CHAT BOT =====
+function toggleChat(force){
+  const b=document.getElementById('chatBox');
+  const open=force!==undefined?force:!b.classList.contains('open');
+  b.classList.toggle('open',open);
+  if(open&&!document.getElementById('chatBody').children.length){
+    botSay("Hello, God bless you! 🙏 I'm <strong>Grace Bot</strong>. Ask me for a <em>verse</em>, a <em>prayer</em>, a <em>song</em>, help with <em>donation/tithe</em>, or type <em>help</em>.");
+  }
+}
+function botSay(html){ const d=document.createElement('div'); d.className='msg bot'; d.innerHTML=html; document.getElementById('chatBody').appendChild(d); document.getElementById('chatBody').scrollTop=99999; }
+function userSay(t){ const d=document.createElement('div'); d.className='msg user'; d.textContent=t; document.getElementById('chatBody').appendChild(d); document.getElementById('chatBody').scrollTop=99999; }
+function askBot(t){ toggleChat(true); userSay(t); setTimeout(()=>botReply(t),400); }
+function sendChat(){ const i=document.getElementById('chatText'); const t=i.value.trim(); if(!t)return; i.value=''; userSay(t); setTimeout(()=>botReply(t),400); }
+function botReply(q){
+  q=q.toLowerCase();
+  const pick=a=>a[Math.floor(Math.random()*a.length)];
+  if(/anx|fear|worry|stress|depress|sad|lonely/.test(q)) return botSay(`For your heart today: <br><br><strong>"Cast all your anxiety on Him because He cares for you." — 1 Peter 5:7</strong><br><br>Take a deep breath. God is with you. 🙏 <br>Would you like a <em>prayer</em>?`);
+  if(/hope|strength|encourage|tired|weak/.test(q)) return botSay(`<strong>"I can do all things through Christ who strengthens me." — Philippians 4:13</strong> 💪<br>You are stronger than you feel. One step at a time.`);
+  if(/heal|sick|health|hospital/.test(q)) return botSay(`Praying for healing 🙏<br><strong>"But I will restore you to health and heal your wounds, declares the Lord." — Jeremiah 30:17</strong><br>You can also submit a <a href="#prayer">prayer request</a> and our team will pray with you.`);
+  if(/pray/.test(q)) return botSay(`Of course, let's pray:<br><br><em>"Heavenly Father, bless my friend reading this. Fill their heart with peace, meet their needs, and surround their family with protection. In Jesus' name, Amen."</em> 🕯<br><br>For personal prayer, use the <a href="#prayer">Prayer form</a>.`);
+  if(/song|music|worship|sing|lyric/.test(q)) return botSay(`Try <strong>Way Maker</strong>, <strong>Amazing Grace</strong> or <strong>10,000 Reasons</strong> in the <a href="#songs">Songs section</a> 🎵. What mood do you want — peaceful or joyful?`);
+  if(/tithe|donat|give|offer|money/.test(q)) return botSay(`Thank you for your generous heart! 💛 <strong>"God loves a cheerful giver." — 2 Cor 9:7</strong><br>Use the <a href="#give">Give section</a> to donate (demo). For real payments the church adds its UPI/Razorpay key.`);
+  if(/bible|verse|scripture|john|psalm/.test(q)){ const v=pick(VERSES); return botSay(`Here is a verse for you:<br><br><strong>"${v.t}" — ${v.r}</strong><br><br>${v.d}`); }
+  if(/church|service|time|sunday|address|contact|where/.test(q)) return botSay(`⛪ Sunday Service: 9 AM & 6 PM<br>🕯 Wednesday Prayer: 7 PM<br>📍 123 Faith Street, Chennai<br>📞 +91 98765 43210`);
+  if(/hi|hello|hey|vanakkam|praise/.test(q)) return botSay(`Hello and God bless! ✝ How can I help — a <em>verse</em>, <em>prayer</em>, <em>song</em>, or info about <em>donation</em>?`);
+  if(/thank|amen|god bless/.test(q)) return botSay(`Amen! 🙌 May the Lord bless you and keep you. (Numbers 6:24)`);
+  if(/help|what can you/.test(q)) return botSay(`I can:<br>• 📖 Give a verse (try "verse for hope")<br>• 🙏 Pray with you (try "pray for me")<br>• 🎵 Suggest songs<br>• 💛 Explain giving<br>• ⛪ Share service times`);
+  return botSay(`I hear you. 💛 Here's a word: <br><strong>"${pick(VERSES).t}"</strong><br><br>Try asking: <em>"verse for anxiety"</em>, <em>"pray for me"</em>, or <em>"suggest a song"</em>.`);
+}
+
+// ===== INIT =====
+renderDaily(); renderSongs(); renderReviews(); renderPrayers();
+document.getElementById('songModal').addEventListener('click',e=>{ if(e.target.id==='songModal')closeSong(); });
+
+</script>
+<script>window.__CF$cv$params={r:'a5ffd95b19b86e02',t:'MTc5NTYwMTI3NA==',u:'01a2122d17c273098281f328c27c5a99',ut:'07Uf4wUIYspEusFmfhipulO1W2UCRqYACL6IVBoPJJY-1795601274-1.2.1.1-rHKxmkJKlGgtAGYFgj83uzLdIaca4gry9s8sMyhIzc9TqwC5a05XB6mvfmVA0zrD7zQ2q2K4Ebh0Um_Itp1eOTx3xL4YUF2.UhAMetbqjTY',i:60};(function(){if(!document.body)return;var l=window.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/precursor/main.js?ray=a5ffd95b19b86e02',s=document.createElement('script');s.src=o?new URL(u,o).href:u;document.head.appendChild(s);})();</script></body>
+</html>
